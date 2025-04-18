@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Tittle"] = "Delete";
+}
+
+@model Coreproject.Models.Producto
+
+<h1>Eliminar Producto</h1>
+
+<h3>Estas seguro que deseas eliminar este producto?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(Model => Model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.Precio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(Model => Model.Precio)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden"asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+    </form>
+</div>

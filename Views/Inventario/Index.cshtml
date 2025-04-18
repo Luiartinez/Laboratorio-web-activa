@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Inventario>
+@{
+    ViewData["Title"] = "Inventario";
+}
+
+<h1>Inventario</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Proveedor</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Producto?.Nombre</td>
+                <td>@item.Producto?.Categoria?.Nombre</td>
+                <td>@item.Producto?.Proveedor?.Nombre</td>
+                <td>@item.Cantidad</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

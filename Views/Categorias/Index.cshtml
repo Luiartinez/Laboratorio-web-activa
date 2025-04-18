@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Categoria>
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<h1>Categorías</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+            </tr>
+        }
+    </tbody>
+</table>        
