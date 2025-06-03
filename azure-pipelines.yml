@@ -1,0 +1,34 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '7.0.x' # Cambia por 6.0.x o 8.0.x si usas otra versión
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Compilar el proyecto'
+
+- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  displayName: 'Publicar el proyecto'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
+
+# Despliegue a App Service
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'AzureConnection' # Cambia por el nombre real de tu conexión
+    appType: 'webApp'
+    appName: 'NombreDeTuAppService'      # Exactamente como en Azure
+    package: '$(System.ArtifactsDirectory)/drop'
